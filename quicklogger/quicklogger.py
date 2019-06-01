@@ -20,7 +20,7 @@ class QuickLogger:
         yield from kwargs.items()
 
     def timestamp(self):
-        yield f'[{str(datetime.datetime.now())}]'
+        yield f'[{datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")}]'
 
     def parts(self, *args, **kwargs):
         yield from self.timestamp()

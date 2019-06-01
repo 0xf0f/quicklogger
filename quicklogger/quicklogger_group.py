@@ -1,16 +1,18 @@
 from .shared_bool import SharedBool
+from .quicklogger_out_group import QuickLoggerOutGroup
 import threading
 
 
-class QuickLoggerGroup:
+class QuickLoggerGroup(QuickLoggerOutGroup):
     def __init__(self):
+        super().__init__()
+
         self.loggers = []
-        self.outs = []
         self._enabled = SharedBool(True)
         self._lock = threading.Lock()
 
     def add_logger(self, logger):
-        logger.outs = self.outs
+        logger.outs = [self]
         logger.enabled = self._enabled
         logger.lock = self._lock
         self.loggers.append(logger)
@@ -20,3 +22,4 @@ class QuickLoggerGroup:
 
     def disable(self):
         self._enabled.value = False
+

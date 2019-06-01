@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='quicklogger',
-    version='1',
+    version='1.5',
     packages=find_packages(),
     url='http://github.com/0xf0f/quicklogger',
     license='MIT',

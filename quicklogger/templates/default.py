@@ -1,3 +1,4 @@
+import sys
 import traceback
 from ..quicklogger import QuickLogger
 from ..quicklogger_group import QuickLoggerGroup
@@ -24,10 +25,12 @@ class DefaultLoggingTemplate(QuickLoggerGroup):
         self.add_logger(self.log_raw)
 
     def log_exception(self, *exc_info):
-        self.log_error(
-            ''.join(traceback.format_exception(*exc_info))
-        )
+        if self._enabled:
+            self.log_error(
+                ''.join(traceback.format_exception(*exc_info))
+            )
+        else:
+            sys.__excepthook__(*exc_info)
 
     def intercept_except_hook(self):
-        import sys
         sys.excepthook = self.log_exception
